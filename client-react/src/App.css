@@ -5,6 +5,7 @@
   text-align: center;
 }
 
+.actions-container,
 .contact-list--section {
   max-width: 50vw;
   margin: 0 auto;
@@ -97,15 +98,37 @@
   gap: 5px;
   margin-bottom: 10px;
 }
+.actions-container label,
 .contact-details--form-group label {
   font-weight: bold;
   font-size: 1rem;
 }
+.actions-container input,
 .contact-details--form-group input {
   width: 100%;/* Include padding in width calculation */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px; 
+}
+.button,
+.actions-container--button {
+  display: block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: 1px solid darkblue;
+  border-radius: 5px;
+  background-color: lightblue;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: darkblue;
+}
+.button:active,
+.button:hover,
+.actions-container--button:active,
+.actions-container--button:hover {
+  border: 1px solid darkblue;
+  background-color: lightblue;
+  color: darkblue;
 }
 .contact-details--buttons {
   display: flex;

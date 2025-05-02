@@ -29,11 +29,16 @@ const App = () => {
 
   return (
     <div className="App">
-        <input
-          type="text"
-          name="search"
-          onChange={e => console.log(e.target.value)}
-        />
+        <h1>Contact List</h1>
+        <div className='actions-container'>
+          <button className="button actions-container--button">Add Contact</button>
+          <label>Search/Filter Contacts</label>
+          <input
+            type="text"
+            name="search"
+            onChange={e => console.log(e.target.value)}
+          />
+        </div>
         <ContactList 
           contacts={contacts} 
           activeContact={activeContact} 
