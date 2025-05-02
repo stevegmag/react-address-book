@@ -5,6 +5,7 @@ import EditContactDetails from './EditContactDetails';
 const Contact = ({contact, activeContact, setActiveContact, isEditing, setIsEditing}) => {
   const {id, firstName, lastName, email} = contact;
   const firstInit = firstName.charAt(0);
+  const isActive = activeContact === id;
   
   // Generate a random pastel color for the background
   const getRandomColor = () => {
@@ -16,14 +17,14 @@ const Contact = ({contact, activeContact, setActiveContact, isEditing, setIsEdit
   // Generate color once when component mounts
   const bgColor = React.useMemo(() => getRandomColor(), []);
 
+  const handleClick = () => {
+    isActive ? setActiveContact(null) : setActiveContact(id);
+    isEditing ? setIsEditing(false) : null;
+  };
+
   return(
     <>
-      <li className="contact-list--item" key={id} 
-        onClick={() => {
-          (activeContact === id) ? setActiveContact(null) : setActiveContact(id); 
-          isEditing ? setIsEditing(false) : null
-        }
-      }>
+      <li className="contact-list--item" key={id} onClick={handleClick}>
         <span 
           className="contact-list--initial" 
           style={{ backgroundColor: bgColor }}
@@ -49,6 +50,10 @@ const Contact = ({contact, activeContact, setActiveContact, isEditing, setIsEdit
             />
           )}
         </div>
+        {/* Arrow indicator */}
+        <span className={`contact-list--arrow ${isActive ? 'active' : ''}`}>
+          &#9654; {/* Unicode right-pointing triangle */}
+        </span>
       </li>
     </>
   );
