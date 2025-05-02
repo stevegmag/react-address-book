@@ -9,6 +9,12 @@
   max-width: 50vw;
   margin: 0 auto;
 }
+@media screen and (max-width: 830px) {
+  .contact-list--section {
+    max-width: 100%;
+    margin: 0 5px;
+  }
+}
 .contact-list--list {
   display: flex;
   flex-direction: column;
@@ -72,7 +78,7 @@
   padding: 0;
   border-top: 0px solid transparent;
   transition: all 0.3s ease-out;
-  visibility: hidden;
+  will-change: max-height, opacity, margin, padding, border-top;
 }
 
 .contact-details--container.active {
@@ -83,7 +89,6 @@
   padding-right: 20px;
   border-top: 1px solid #ccc;
   transition: all 0.4s ease-in;
-  visibility: visible;
 }
 
 .contact-details--form-group {
@@ -142,8 +147,22 @@
   font-size: .75rem;
   color: #666;
   pointer-events: none; /* Ensures clicks pass through to the list item */
+  will-change: transform;
 }
 
 .contact-list--arrow.active {
   transform: translateY(-50%) rotate(90deg);
+}
+
+/* Slide container with optimized animation */
+.slide-container {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out;
+  will-change: height;
+}
+
+.slide-container.active {
+  height: auto;
+  overflow: visible;
 }
