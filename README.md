@@ -31,10 +31,20 @@ Ember is set up with proxy server as well, its in the `client-ember` folder, `np
 The task is to create an address book for managing and updating a list of contacts.
 The app needs to have some basic functionalities
 
-- the ability to see all your contacts (they do not need to be sorted alphabetically)
-- the ability to edit a contacts information
-- the ability to delete a contact
-- the ability to search your contacts
+- [ ] TODO: the ability to see all your contacts (they do not need to be sorted alphabetically)
+- [ ] TODO: the ability to EDIT a contacts information
+- [ ] TODO: the ability to DELETE a contact
+- [ ] TODO: the ability to SEARCH your contacts
+
+- _Enhancements_
+  - [ ] TODO: the ability to ADD a new contacts
+  - [ ] TODO: form and accordion accessibility
+  - [ ] TODO: add accordion indicator
+  - [ ] TODO: animate indication and acordion
+  - [ ] TODO: annimate the swap between detail and edit
+  - [ ] TODO: the ability to search your contacts
+  - [ ] TODO: sorting / filtering
+  - [ ] TODO: pagination and setting the number of contacts per page
 
 We have some resources at our disposal, a set of (semi) complete wireframes from a designer, and a RESTFUL JSON api that implements search and pagination. The rest is up to you.
 Feel free to get as complicated as you so desire, keeping in mind the time limit.
