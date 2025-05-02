@@ -45,6 +45,7 @@ The app needs to have some basic functionalities
   - [ ] TODO: the ability to search your contacts
   - [ ] TODO: sorting / filtering
   - [ ] TODO: pagination and setting the number of contacts per page
+  - [ ] TODO: Set up tests for the API and APP
 
 We have some resources at our disposal, a set of (semi) complete wireframes from a designer, and a RESTFUL JSON api that implements search and pagination. The rest is up to you.
 Feel free to get as complicated as you so desire, keeping in mind the time limit.
