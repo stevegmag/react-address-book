@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const EditContactDetails = ({contact, activeContact, isEditing, setIsEditing}) => {
   const {id, firstName: initialFirstName, lastName: initialLastName, email: initialEmail, 
@@ -9,13 +9,26 @@ const EditContactDetails = ({contact, activeContact, isEditing, setIsEditing}) =
   const [firstName, setFirstName] = useState(initialFirstName);
   const [lastName, setLastName] = useState(initialLastName);
   const [email, setEmail] = useState(initialEmail);
-  const [street, setStreet] = useState(initialStreet);
-  const [city, setCity] = useState(initialCity);
-  const [state, setState] = useState(initialState);
-  const [zip, setZip] = useState(initialZip);
-  const [phone, setPhone] = useState(initialPhone);
+  const [street, setStreet] = useState(initialStreet || '');
+  const [city, setCity] = useState(initialCity || '');
+  const [state, setState] = useState(initialState || '');
+  const [zip, setZip] = useState(initialZip || '');
+  const [phone, setPhone] = useState(initialPhone || '');
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  
+  // Reset form when contact changes
+  useEffect(() => {
+    setFirstName(initialFirstName);
+    setLastName(initialLastName);
+    setEmail(initialEmail);
+    setStreet(initialStreet || '');
+    setCity(initialCity || '');
+    setState(initialState || '');
+    setZip(initialZip || '');
+    setPhone(initialPhone || '');
+  }, [initialFirstName, initialLastName, initialEmail, initialStreet, initialCity, initialState, initialZip, initialPhone]);
 
   // Stop event propagation
   const handleClick = (e) => {
@@ -28,24 +41,46 @@ const EditContactDetails = ({contact, activeContact, isEditing, setIsEditing}) =
     e.stopPropagation();
     setIsSaving(true);
     setError(null);
+    setSuccess(false);
     
     try {
-      const response = await fetch(`api/oddballs/${id}`, {
+      // Make sure we're using the correct URL format
+      const url = `/api/oddballs/${id}`;
+      console.log('Submitting to:', url);
+      
+      const response = await fetch(url, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          firstName, lastName, email, street, city, state, zip, phone
+          firstName, 
+          lastName, 
+          email, 
+          street, 
+          city, 
+          state, 
+          zip, 
+          phone
         }),
       });
       
+      const data = await response.json();
+      
       if (!response.ok) {
-        throw new Error('Failed to update contact');
+        throw new Error(data.message || 'Failed to update contact');
       }
       
-      setIsEditing(false);
+      // Update was successful
+      setSuccess(true);
+      
+      // Close edit mode after a short delay
+      setTimeout(() => {
+        setIsEditing(false);
+      }, 1500);
+      
     } catch (err) {
+      console.error('Error updating contact:', err);
       setError(err.message);
     } finally {
       setIsSaving(false);
@@ -59,6 +94,10 @@ const EditContactDetails = ({contact, activeContact, isEditing, setIsEditing}) =
         key={id}
         onClick={handleClick}
       >
+        {success && (
+          <div className="success-message">Contact updated successfully!</div>
+        )}
+        
         <form onSubmit={handleSubmit}>
           {/* Form fields */}
           <div className="contact-details--form-group">
@@ -71,7 +110,6 @@ const EditContactDetails = ({contact, activeContact, isEditing, setIsEditing}) =
             />
           </div>
           
-          {/* Other form fields... */}
           <div className="contact-details--form-group">
             <label>Last Name:</label>
             <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required />

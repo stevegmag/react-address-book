@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import ContactDetails from './ContactDetails';
 import EditContactDetails from './EditContactDetails';
 
-const Contact = ({contact, activeContact, setActiveContact, isEditing, setIsEditing}) => {
+const Contact = ({contact, activeContact, setActiveContact, isEditing, setIsEditing, refreshContacts}) => {
   const {id, firstName, lastName, email} = contact;
   const firstInit = firstName.charAt(0);
   const isActive = activeContact === id;
@@ -17,6 +17,13 @@ const Contact = ({contact, activeContact, setActiveContact, isEditing, setIsEdit
     }, 50);
     return () => clearTimeout(timer);
   }, [isEditing]);
+  
+  // When editing is done, refresh contacts
+  useEffect(() => {
+    if (!isEditing && isActive && refreshContacts) {
+      refreshContacts();
+    }
+  }, [isEditing, isActive, refreshContacts]);
   
   // Generate a random pastel color for the background
   const getRandomColor = () => {
@@ -42,6 +49,7 @@ const Contact = ({contact, activeContact, setActiveContact, isEditing, setIsEdit
           activeContact={activeContact}
           isEditing={isEditing}
           setIsEditing={setIsEditing}
+          refreshContacts={refreshContacts}
         />
       );
     } else {

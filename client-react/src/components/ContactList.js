@@ -1,7 +1,7 @@
 import React from 'react';
 import Contact from './Contact';
 
-const ContactList = ({contacts, activeContact, setActiveContact, isEditing, setIsEditing}) => {
+const ContactList = ({contacts, activeContact, setActiveContact, isEditing, setIsEditing, refreshContacts}) => {
   if(!contacts) {
     return (
       <div className="empty-contacts">no contacts found</div>
@@ -18,6 +18,7 @@ const ContactList = ({contacts, activeContact, setActiveContact, isEditing, setI
             setActiveContact={setActiveContact}
             isEditing={isEditing}
             setIsEditing={setIsEditing}
+            refreshContacts={refreshContacts}
             key={contact.id} 
           />
         ))}
